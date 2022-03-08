@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>ToDo App</title>
+</head>
+<body>
+    
+    <div id="root"></div>
+    
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone@7.17.6/babel.min.js"></script>
+    <script src="https://kit.fontawesome.com/759ca0765c.js" crossorigin="anonymous"></script>    
+    
+    <script type="text/babel">
+
+        const rootElement = document.getElementById('root')
+
+        function App(){
+
+            const [name, setName] = React.useState('')
+            //array that changes its state with the data
+            const [item, setItem] = React.useState([])
+
+
+            const handleChange = (event) => setName(event.target.value) 
+
+            const addItem = () => {
+                setItem( (apList) => {return [...apList, name]} )
+            }
+
+            return(
+                <div>
+                    <p className="title">To Do List</p>
+                    <div>
+                        <input onChange={handleChange} name="taskInput" className="takeMe" placeholder="Add your task here" />
+                        <i onClick={addItem} className="fa-solid fa-circle-plus fa-xl addButton"></i>
+                        <hr color="#000" style={{marginTop:'1em', marginBttom: '1em'}}/>
+                        
+                        {/*displaying items with the help of array mapping*/}
+                        {/* map has 4 attributes: 1. current value, 2. index(current value) 3. array you're dealing with 4. this*/}
+                        <table style={{textAlign: 'center', margin: 'auto'}}>
+                            <tbody>
+                                {item.map( (adItem) => {return (
+                                    <tr>
+                                        <td>
+                                            <span className="fa-solid fa-circle-plus remButton"></span>
+                                        </td>
+                                        <td>
+                                            <span> {adItem} </span> 
+                                        </td>
+                                    </tr>
+                                )})}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )
+
+        }
+
+        ReactDOM.render(<App />, rootElement)
+
+    </script>
+
+</body>
+</html>
